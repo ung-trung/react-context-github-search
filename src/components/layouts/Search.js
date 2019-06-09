@@ -4,11 +4,18 @@ import { GithubContext } from '../../contexts/github/GithubState';
 const Search = () => {
   const [text, setText] = useState('');
 
-  const { users, searchUsers, clearUsers } = useContext(GithubContext);
+  const { users, searchUsers, clearUsers, getUsers } = useContext(
+    GithubContext
+  );
 
   const onSubmit = e => {
     e.preventDefault();
-    searchUsers(text);
+    if (text) {
+      searchUsers(text);
+    } else {
+      getUsers();
+    }
+    setText('');
   };
 
   return (

@@ -3,8 +3,6 @@ import {
   GET_USER,
   CLEAR_USERS,
   GET_REPOS,
-  SET_ALERT,
-  REMOVE_ALERT,
   GET_USERS,
   SET_VISITED
 } from '../types';
@@ -21,6 +19,8 @@ const githubReducer = (state, action) => {
       return { ...state, visited: true };
     case GET_USER:
       return { ...state, user: action.payload };
+    case GET_REPOS:
+      return { ...state, repos: action.payload };
     default:
       return state;
   }

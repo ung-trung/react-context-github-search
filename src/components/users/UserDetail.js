@@ -1,24 +1,30 @@
 import React, { useContext, useEffect } from 'react';
-import Loader from '../../components/layouts/Loader';
+import { Link } from 'react-router-dom';
+import RepoList from '../../components/repos/RepoList';
+import UserInfo from './UserInfo';
 
 import { GithubContext } from '../../contexts/github/GithubState';
 
 const UserDetail = props => {
-  const { getUser, user } = useContext(GithubContext);
+  const { getUser, getRepos } = useContext(GithubContext);
+  const { text } = props.match.params;
 
   useEffect(() => {
-    getUser(props.match.params.text);
-  }, [getUser, props]);
+    getUser(text);
+    getRepos(text);
+  }, [getRepos, getUser, text]);
 
-  const renderUser = () => {
-    if (user) {
-      if (user.login === props.match.params.text) {
-        return <div>{user.login}</div>;
-      }
-    }
-    return <Loader text="Loading..." />;
-  };
-  return <>{renderUser()}</>;
+  return (
+    <>
+      <Link className="ui button" to="/">
+        Back to Search
+      </Link>
+      <h3 className="header">User Info</h3>
+      <UserInfo text={props.match.params.text} />
+      <h3 className="header">Link to Repositories</h3>
+      <RepoList />
+    </>
+  );
 };
 
 export default UserDetail;

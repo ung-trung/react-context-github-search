@@ -18,7 +18,9 @@ const UserList = () => {
       <Search />
       {users.length > 0 ? <div className="ui divider" /> : null}
       <div className="ui stackable grid container">
-        <UserItem />
+        {users.map(user => (
+          <UserItem user={user} key={user.id} />
+        ))}
       </div>
     </>
   );

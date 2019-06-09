@@ -6,8 +6,6 @@ import {
   GET_USER,
   CLEAR_USERS,
   GET_REPOS,
-  SET_ALERT,
-  REMOVE_ALERT,
   GET_USERS,
   SET_VISITED
 } from '../types';
@@ -16,7 +14,6 @@ const initialState = {
   users: [],
   user: {},
   repos: [],
-  loading: false,
   visited: false
 };
 // @ts-ignore
@@ -37,9 +34,17 @@ const GithubState = props => {
 
   const getUser = useCallback(async text => {
     const { data } = await github.get(`/users/${text}`);
-    console.log(data);
-
     dispatch({ type: GET_USER, payload: data });
+  }, []);
+
+  const getRepos = useCallback(async text => {
+    const { data } = await github.get(`/users/${text}/repos`, {
+      params: {
+        per_page: 5,
+        sort: 'created:asc'
+      }
+    });
+    dispatch({ type: GET_REPOS, payload: data });
   }, []);
 
   const clearUsers = () => {
@@ -56,13 +61,13 @@ const GithubState = props => {
         users: state.users,
         user: state.user,
         repos: state.repos,
-        loading: state.loading,
         visited: state.visited,
         getUsers,
         searchUsers,
         clearUsers,
         setVisited,
-        getUser
+        getUser,
+        getRepos
       }}>
       {props.children}
     </GithubContext.Provider>
