@@ -5,10 +5,17 @@ const RepoItem = props => {
   console.log(repo);
 
   return (
-    <div className="ui segment">
-      <a className="fluid ui button " href={repo.html_url}>
-        {repo.name}
-      </a>
+    <div className="fluid ui card">
+      <div className="content">
+        <div className="header">{repo.name}</div>
+        <div className="description">{repo.description}</div>
+      </div>
+      <div className="extra content">
+        Link:{' '}
+        <a className="" href={repo.html_url}>
+          {repo.html_url}
+        </a>
+      </div>
     </div>
   );
 };

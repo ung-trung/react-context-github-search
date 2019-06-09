@@ -12,10 +12,10 @@ const Search = () => {
     e.preventDefault();
     if (text) {
       searchUsers(text);
+      setText('');
     } else {
       getUsers();
     }
-    setText('');
   };
 
   return (
