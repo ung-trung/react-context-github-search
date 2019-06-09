@@ -5,18 +5,20 @@ import Search from '../layouts/Search';
 import { GithubContext } from '../../contexts/github/GithubState';
 
 const UserList = () => {
-  const { users, getUsers } = useContext(GithubContext);
+  const { users, visited, getUsers, setVisited } = useContext(GithubContext);
 
   useEffect(() => {
-    getUsers();
-  }, [getUsers]);
+    if (!visited) {
+      getUsers();
+      setVisited();
+    }
+  }, [getUsers, setVisited, visited]);
   return (
     <>
       <Search />
       {users.length > 0 ? <div className="ui divider" /> : null}
       <div className="ui stackable grid container">
-        {' '}
-        <UserItem />{' '}
+        <UserItem />
       </div>
     </>
   );

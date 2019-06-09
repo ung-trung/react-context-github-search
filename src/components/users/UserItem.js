@@ -18,7 +18,9 @@ const UserItem = () => {
             <div className="content">
               <div className="header">{user.login}</div>
             </div>
-            <Link className="ui bottom attached button" to={`/user/${user.id}`}>
+            <Link
+              className="ui bottom attached button"
+              to={`/user/${user.login}`}>
               <i className="add icon" />
               More
             </Link>
